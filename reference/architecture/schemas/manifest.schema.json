@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.invalid/storypack/v1/manifest.schema.json",
+  "title": "AI Fate Story Package Manifest v1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "schemaVersion", "packId", "version", "title", "language", "licensing", "entry", "time", "references", "assets"],
+  "properties": {
+    "format": {"const": "aifate.storypack"},
+    "schemaVersion": {"const": "1.0.0"},
+    "packId": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$", "maxLength": 100},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "title": {"type": "string", "minLength": 1, "maxLength": 150},
+    "language": {"type": "string", "pattern": "^[a-z]{2,3}(?:-[A-Za-z0-9]+)*$"},
+    "description": {"type": "string", "maxLength": 1000},
+    "licensing": {
+      "type": "object", "additionalProperties": false,
+      "required": ["rightsholder", "usage", "distribution"],
+      "properties": {
+        "rightsholder": {"type": "string", "minLength": 1},
+        "usage": {"enum": ["original-demo", "owned", "licensed"]},
+        "distribution": {"enum": ["demo-only", "private", "public"]},
+        "attribution": {"type": "string"}
+      }
+    },
+    "entry": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sceneId", "protagonistId", "defaultRoleId"],
+      "properties": {
+        "sceneId": {"$ref": "#/definitions/id"},
+        "protagonistId": {"$ref": "#/definitions/id"},
+        "defaultRoleId": {"$ref": "#/definitions/id"}
+      }
+    },
+    "time": {
+      "type": "object", "additionalProperties": false,
+      "required": ["mode", "startStoryMinute", "maxCatchupHours", "timeScale"],
+      "properties": {
+        "mode": {"const": "on_resume"},
+        "startStoryMinute": {"type": "integer", "minimum": 0},
+        "maxCatchupHours": {"type": "number", "exclusiveMinimum": 0, "maximum": 24},
+        "timeScale": {"type": "number", "exclusiveMinimum": 0, "maximum": 10}
+      }
+    },
+    "references": {
+      "type": "object", "additionalProperties": false,
+      "required": ["world", "characters", "playerRoles", "scenes", "tasks", "fate", "opening"],
+      "properties": {
+        "world": {"$ref": "#/definitions/jsonPath"},
+        "characters": {"$ref": "#/definitions/jsonPath"},
+        "playerRoles": {"$ref": "#/definitions/jsonPath"},
+        "scenes": {"$ref": "#/definitions/jsonPath"},
+        "tasks": {"$ref": "#/definitions/jsonPath"},
+        "fate": {"$ref": "#/definitions/jsonPath"},
+        "opening": {"$ref": "#/definitions/jsonPath"}
+      }
+    },
+    "assets": {
+      "type": "array", "maxItems": 200,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "path", "mediaType", "sha256", "sizeBytes"],
+        "properties": {
+          "id": {"$ref": "#/definitions/id"},
+          "path": {"type": "string", "pattern": "^assets/[A-Za-z0-9._/-]+$"},
+          "mediaType": {"enum": ["image/jpeg", "image/webp", "audio/mpeg", "audio/mp4", "audio/webm"]},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "sizeBytes": {"type": "integer", "minimum": 1, "maximum": 20971520}
+        }
+      }
+    }
+  },
+  "definitions": {
+    "id": {"type": "string", "minLength": 3, "maxLength": 120, "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"},
+    "jsonPath": {"type": "string", "pattern": "^[A-Za-z0-9_-]+(?:/[A-Za-z0-9_-]+)*\\.json$"}
+  }
+}

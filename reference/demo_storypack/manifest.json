@@ -1,0 +1,35 @@
+{
+  "format": "aifate.storypack",
+  "schemaVersion": "1.0.0",
+  "packId": "demo.midnight_hospital",
+  "version": "0.1.0",
+  "title": "午夜病院：远程协助（虚构 DEMO）",
+  "language": "zh-CN",
+  "description": "演示人物知识隔离、远程协助、任务裁定以及原著命运可能改写。非成品游戏。",
+  "licensing": {
+    "rightsholder": "DEMO / 原创虚构占位",
+    "usage": "original-demo",
+    "distribution": "demo-only"
+  },
+  "entry": {
+    "sceneId": "scene.hall",
+    "protagonistId": "char.lin",
+    "defaultRoleId": "role.expert"
+  },
+  "time": {
+    "mode": "on_resume",
+    "startStoryMinute": 0,
+    "maxCatchupHours": 12,
+    "timeScale": 1
+  },
+  "references": {
+    "world": "world.json",
+    "characters": "characters.json",
+    "playerRoles": "player_roles.json",
+    "scenes": "scenes.json",
+    "tasks": "tasks.json",
+    "fate": "fate.json",
+    "opening": "opening.json"
+  },
+  "assets": []
+}

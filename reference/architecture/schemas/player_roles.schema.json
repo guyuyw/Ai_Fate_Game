@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Story player roles",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "roles"
+  ],
+  "properties": {
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "permissions",
+          "initialKnownFactIds",
+          "initialTrustBias",
+          "description"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/definitions/id"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "permissions": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "send_advice",
+                "request_media",
+                "annotate_evidence",
+                "issue_system_hint"
+              ]
+            }
+          },
+          "initialKnownFactIds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/id"
+            },
+            "minItems": 0
+          },
+          "initialTrustBias": {
+            "type": "number",
+            "minimum": -100,
+            "maximum": 100
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        }
+      },
+      "minItems": 1
+    }
+  },
+  "definitions": {
+    "id": {
+      "type": "string",
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+    }
+  }
+}

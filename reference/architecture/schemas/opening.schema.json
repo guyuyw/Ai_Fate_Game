@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Story opening",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "startingSceneId",
+    "messages"
+  ],
+  "properties": {
+    "startingSceneId": {
+      "$ref": "#/definitions/id"
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "senderId",
+          "type",
+          "content",
+          "storyMinute"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/definitions/id"
+          },
+          "senderId": {
+            "$ref": "#/definitions/id"
+          },
+          "type": {
+            "const": "text"
+          },
+          "content": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 10000
+          },
+          "storyMinute": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "minItems": 1
+    }
+  },
+  "definitions": {
+    "id": {
+      "type": "string",
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+    }
+  }
+}

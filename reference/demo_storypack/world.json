@@ -1,0 +1,52 @@
+{
+  "worldRules": [
+    {
+      "id": "rule.fixed_time",
+      "immutable": true,
+      "description": "叙事时间单向推进，人物不能穿越已确定的过去。"
+    },
+    {
+      "id": "rule.evidence",
+      "immutable": true,
+      "description": "主角不能凭空获得证据；只有实际检查和他人合法披露可以增加所知事实。"
+    }
+  ],
+  "facts": [
+    {
+      "id": "fact.exit_route",
+      "description": "西走廊紧急出口可通往屋顶楼梯。",
+      "initialKnownTo": [],
+      "hiddenFromPlayerAtStart": true
+    },
+    {
+      "id": "fact.lab_location",
+      "description": "被封锁的研究室在三层东端。",
+      "initialKnownTo": [
+        "char.chen"
+      ],
+      "hiddenFromPlayerAtStart": true
+    },
+    {
+      "id": "fact.witness_in_lab",
+      "description": "失踪的目击者可能被锁在研究室。",
+      "initialKnownTo": [
+        "char.chen"
+      ],
+      "hiddenFromPlayerAtStart": true
+    },
+    {
+      "id": "fact.source_of_fog",
+      "description": "雾来自二十年前研究设施的事故。",
+      "initialKnownTo": [
+        "char.chen"
+      ],
+      "hiddenFromPlayerAtStart": true
+    }
+  ],
+  "flags": {
+    "witness_rescued": false,
+    "lab_door_open": false,
+    "main_power_on": true,
+    "mission_failed": false
+  }
+}

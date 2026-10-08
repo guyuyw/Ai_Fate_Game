@@ -1,0 +1,40 @@
+{
+  "baselineFates": [
+    {
+      "id": "fate.witness_death",
+      "referenceEventId": "event.witness_death",
+      "description": "原著基准：主角未及时救援，目击者在两小时后死亡。",
+      "trigger": {
+        "op": "all",
+        "rules": [
+          {
+            "op": "story_time_gte",
+            "minute": 120
+          },
+          {
+            "op": "flag_eq",
+            "flag": "witness_rescued",
+            "value": false
+          },
+          {
+            "op": "actor_alive",
+            "actorId": "char.ye",
+            "value": true
+          }
+        ]
+      },
+      "cancelIf": {
+        "op": "flag_eq",
+        "flag": "witness_rescued",
+        "value": true
+      },
+      "effects": [
+        {
+          "type": "actor_alive",
+          "actorId": "char.ye",
+          "alive": false
+        }
+      ]
+    }
+  ]
+}

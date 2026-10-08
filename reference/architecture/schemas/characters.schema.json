@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Story characters",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "characters",
+    "relations"
+  ],
+  "properties": {
+    "characters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "kind",
+          "persona",
+          "goals",
+          "initialState"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/definitions/id"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "kind": {
+            "enum": [
+              "protagonist",
+              "npc"
+            ]
+          },
+          "persona": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 5000
+          },
+          "goals": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 250
+            },
+            "minItems": 0
+          },
+          "initialState": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "alive",
+              "locationId",
+              "health",
+              "stress",
+              "knownFactIds",
+              "inventoryItemIds"
+            ],
+            "properties": {
+              "alive": {
+                "type": "boolean"
+              },
+              "locationId": {
+                "$ref": "#/definitions/id"
+              },
+              "health": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "stress": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "knownFactIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/id"
+                },
+                "minItems": 0
+              },
+              "inventoryItemIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/id"
+                },
+                "minItems": 0
+              }
+            }
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "subjectId",
+          "targetId",
+          "trust",
+          "respect",
+          "affinity",
+          "caution"
+        ],
+        "properties": {
+          "subjectId": {
+            "$ref": "#/definitions/id"
+          },
+          "targetId": {
+            "$ref": "#/definitions/id"
+          },
+          "trust": {
+            "type": "number",
+            "minimum": -100,
+            "maximum": 100
+          },
+          "respect": {
+            "type": "number",
+            "minimum": -100,
+            "maximum": 100
+          },
+          "affinity": {
+            "type": "number",
+            "minimum": -100,
+            "maximum": 100
+          },
+          "caution": {
+            "type": "number",
+            "minimum": -100,
+            "maximum": 100
+          }
+        }
+      },
+      "minItems": 0
+    }
+  },
+  "definitions": {
+    "id": {
+      "type": "string",
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+    }
+  }
+}

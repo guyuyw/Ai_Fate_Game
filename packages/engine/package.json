@@ -1,0 +1,7 @@
+{
+  "name": "@aifate/engine",
+  "version": "0.0.0-scaffold",
+  "private": true,
+  "type": "module",
+  "exports": {".": "./src/index.ts"}
+}

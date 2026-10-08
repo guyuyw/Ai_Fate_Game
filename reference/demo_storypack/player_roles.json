@@ -1,0 +1,39 @@
+{
+  "roles": [
+    {
+      "id": "role.bystander",
+      "title": "远程路人",
+      "permissions": [
+        "send_advice",
+        "request_media"
+      ],
+      "initialKnownFactIds": [],
+      "initialTrustBias": 0,
+      "description": "可以建议，但没有特殊权能。"
+    },
+    {
+      "id": "role.expert",
+      "title": "远程调查专家",
+      "permissions": [
+        "send_advice",
+        "request_media",
+        "annotate_evidence"
+      ],
+      "initialKnownFactIds": [],
+      "initialTrustBias": 10,
+      "description": "可提供专业分析，无法凭空生成证据。"
+    },
+    {
+      "id": "role.system",
+      "title": "异常通讯系统",
+      "permissions": [
+        "send_advice",
+        "request_media",
+        "issue_system_hint"
+      ],
+      "initialKnownFactIds": [],
+      "initialTrustBias": 5,
+      "description": "系统提示仅限剧情预授权范围；不能修改世界事实。"
+    }
+  ]
+}

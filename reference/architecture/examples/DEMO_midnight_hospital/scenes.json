@@ -1,0 +1,27 @@
+{
+  "scenes": [
+    {
+      "id": "scene.hall",
+      "title": "医院二层走廊",
+      "access": "initial",
+      "availableObjects": [
+        "item.flashlight",
+        "obj.exit_sign"
+      ]
+    },
+    {
+      "id": "scene.laboratory",
+      "title": "三层研究室",
+      "access": "locked",
+      "availableObjects": [
+        "obj.lab_door"
+      ]
+    },
+    {
+      "id": "scene.roof",
+      "title": "屋顶楼梯",
+      "access": "locked",
+      "availableObjects": []
+    }
+  ]
+}

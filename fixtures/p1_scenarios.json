@@ -1,0 +1,126 @@
+{
+  "fixtureVersion": "1.0.0",
+  "fixtureKind": "authoritative-test-events-only",
+  "storyPackId": "demo.midnight_hospital",
+  "warning": "P1 test specification only. These trusted test events may not be exposed as production player/model capabilities.",
+  "cases": [
+    {
+      "id": "rescue_before_deadline",
+      "description": "测试编排者以可信事件提供真实发现和营救结果，检验任务状态与命运取消。",
+      "seed": "p1-demo-101",
+      "startMinute": 0,
+      "actions": [
+        {
+          "atMinute": 10,
+          "source": "test_fixture",
+          "explanation": "获得真实出口线索；故事包尚未定义实际物体交互和地图寻路。",
+          "effects": [{ "type": "grant_fact", "actorId": "char.lin", "factId": "fact.exit_route" }]
+        },
+        {
+          "atMinute": 20,
+          "source": "test_fixture",
+          "explanation": "在已完成合法对话的前提下获得研究室位置。",
+          "effects": [{ "type": "grant_fact", "actorId": "char.lin", "factId": "fact.lab_location" }]
+        },
+        {
+          "atMinute": 100,
+          "source": "test_fixture",
+          "explanation": "合法营救事件已在截止前被裁定成功；不代表模型或玩家可以任意设旗标。",
+          "effects": [{ "type": "set_flag", "flag": "witness_rescued", "value": true }]
+        }
+      ],
+      "advanceToMinute": 120,
+      "expect": {
+        "alive": { "char.ye": true },
+        "tasks": {
+          "task.find_route": "succeeded",
+          "task.interview": "succeeded",
+          "task.save_witness": "succeeded"
+        },
+        "flags": { "witness_rescued": true },
+        "occurredEventsAbsent": ["event.witness_death"],
+        "relationship": { "subjectId": "char.ye", "targetId": "char.lin", "dimension": "trust", "expectedDelta": 20 }
+      }
+    },
+    {
+      "id": "no_rescue_at_deadline",
+      "description": "无合法营救事件，原著死亡候选在第120分钟成真。",
+      "seed": "p1-demo-101",
+      "startMinute": 0,
+      "actions": [
+        { "atMinute": 10, "source": "test_fixture", "effects": [{ "type": "grant_fact", "actorId": "char.lin", "factId": "fact.exit_route" }] },
+        { "atMinute": 20, "source": "test_fixture", "effects": [{ "type": "grant_fact", "actorId": "char.lin", "factId": "fact.lab_location" }] }
+      ],
+      "advanceToMinute": 120,
+      "expect": {
+        "alive": { "char.ye": false },
+        "tasks": { "task.save_witness": "failed" },
+        "flags": { "witness_rescued": false },
+        "occurredEventsPresent": ["event.witness_death"],
+        "occurredEventsAbsent": []
+      }
+    },
+    {
+      "id": "attempt_to_rescue_at_exact_deadline",
+      "description": "同一分钟：第120分钟到期命运优先于新到的玩家建议。",
+      "seed": "p1-demo-101",
+      "startMinute": 0,
+      "actions": [
+        { "atMinute": 10, "source": "test_fixture", "effects": [{ "type": "grant_fact", "actorId": "char.lin", "factId": "fact.exit_route" }] },
+        { "atMinute": 20, "source": "test_fixture", "effects": [{ "type": "grant_fact", "actorId": "char.lin", "factId": "fact.lab_location" }] },
+        {
+          "atMinute": 120,
+          "source": "late_player_request",
+          "explanation": "不是已提交的合法历史事件，不得被转换为第119分钟营救成功。",
+          "proposal": { "requestId": "request.too_late", "actorId": "char.lin", "verb": "request_help", "targetId": "char.ye", "citedFactIds": ["fact.lab_location"] }
+        }
+      ],
+      "advanceToMinute": 120,
+      "expect": {
+        "alive": { "char.ye": false },
+        "occurredEventsPresent": ["event.witness_death"],
+        "taskCanSucceed": false
+      }
+    },
+    {
+      "id": "model_cannot_forge_world_flag",
+      "description": "模型输出不是获救事实。",
+      "seed": "p1-demo-202",
+      "startMinute": 0,
+      "actions": [
+        {
+          "atMinute": 25,
+          "source": "untrusted_model",
+          "proposal": {
+            "requestId": "request.forged_success",
+            "actorId": "char.lin",
+            "verb": "inspect",
+            "targetId": "obj.unknown",
+            "parameters": { "set_flag": "witness_rescued" },
+            "citedFactIds": []
+          }
+        }
+      ],
+      "advanceToMinute": 26,
+      "expect": {
+        "flags": { "witness_rescued": false },
+        "tasks": { "task.save_witness": "locked" },
+        "rejectedRequestIds": ["request.forged_success"]
+      }
+    },
+    {
+      "id": "private_fact_isolation",
+      "description": "主角初始不能读取陈博士掌握的幕后真相。",
+      "seed": "p1-demo-303",
+      "startMinute": 0,
+      "actions": [],
+      "advanceToMinute": 0,
+      "expect": {
+        "actorContext": {
+          "char.lin": { "excludedFactIds": ["fact.source_of_fog", "fact.lab_location", "fact.witness_in_lab"] },
+          "char.chen": { "includedFactIds": ["fact.source_of_fog", "fact.lab_location", "fact.witness_in_lab"] }
+        }
+      }
+    }
+  ]
+}

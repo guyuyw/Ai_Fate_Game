@@ -1,0 +1,133 @@
+{
+  "packageVersion": "1.0.0",
+  "builtAt": "2026-10-08",
+  "artifactKind": "architecture-design-only",
+  "qa": {
+    "contractChecksPassed": "6/6",
+    "schemaCategories": 8,
+    "typescriptStrict": true,
+    "appImplemented": false
+  },
+  "files": [
+    {
+      "path": "01_MVP_技术规格_v1.0.md",
+      "sizeBytes": 21855,
+      "sha256": "615ec511b8c3edce51715ad0e77afe2e126648befb84fbfa73aa747a506a7bb1"
+    },
+    {
+      "path": "README.md",
+      "sizeBytes": 1207,
+      "sha256": "f8ca977b834e6452123237a02d9d74248494fcb9c72a5107590f7fa9f1af5594"
+    },
+    {
+      "path": "contracts/runtime.ts",
+      "sizeBytes": 6579,
+      "sha256": "6e45179edaeff0b399cd7fb16b9ce3d7ff297aa798c667a7115f2bcb832ea8c6"
+    },
+    {
+      "path": "examples/DEMO_midnight_hospital/characters.json",
+      "sizeBytes": 1861,
+      "sha256": "b86a2b875365431086709fe7eeae527627d50cbcd1e2d82812da11a66e815922"
+    },
+    {
+      "path": "examples/DEMO_midnight_hospital/fate.json",
+      "sizeBytes": 871,
+      "sha256": "ee8b57641108fa29a82623e4f69cb46f37074cd71ba79de37e5eccd2d1701af0"
+    },
+    {
+      "path": "examples/DEMO_midnight_hospital/manifest.json",
+      "sizeBytes": 948,
+      "sha256": "663bd1aa2533b6e5e514abdca19de9d483ba6b53884acba01a30cf833da76db8"
+    },
+    {
+      "path": "examples/DEMO_midnight_hospital/opening.json",
+      "sizeBytes": 284,
+      "sha256": "44bfbc830a81ce2f1da9bfa984dcce13bd5d33fd3f0e68cfef007807918a9c60"
+    },
+    {
+      "path": "examples/DEMO_midnight_hospital/player_roles.json",
+      "sizeBytes": 961,
+      "sha256": "04b130e832ccc2777fdb412ef306c4e117c1e41301f3b54447c50e5854574303"
+    },
+    {
+      "path": "examples/DEMO_midnight_hospital/scenes.json",
+      "sizeBytes": 500,
+      "sha256": "aac0037c795ab43ab9bb5a41b356ff89c9c86d91823ee634f61b002675c5902d"
+    },
+    {
+      "path": "examples/DEMO_midnight_hospital/tasks.json",
+      "sizeBytes": 2250,
+      "sha256": "7e34d1605291bb371d620c6a94534ac8f75451887df61b1737410802eb2bb55f"
+    },
+    {
+      "path": "examples/DEMO_midnight_hospital/world.json",
+      "sizeBytes": 1326,
+      "sha256": "c4dfcbd52824a25aed2c1702546bb14dcd87578bb9f3339899f31c9dd96380d7"
+    },
+    {
+      "path": "qa/ACCEPTANCE_TESTS.md",
+      "sizeBytes": 4425,
+      "sha256": "d97e183deba93a4686e797eac18ccd30124544087e7b67b76b4da800fff93337"
+    },
+    {
+      "path": "qa/VALIDATION_REPORT.md",
+      "sizeBytes": 1567,
+      "sha256": "13782db46861110e7dff2d7f242203d4638e351fe3aeecf2a01dfed970652115"
+    },
+    {
+      "path": "qa/build_demo.py",
+      "sizeBytes": 6961,
+      "sha256": "54d183c772df2d4d081e44d1332a5e2a0dd9df95907d6be1a50ebaf716e82f5d"
+    },
+    {
+      "path": "qa/build_extra_schemas.py",
+      "sizeBytes": 4073,
+      "sha256": "6b357749ad61f7d44d4c20ec8a8859c02abbe3c49d2bec9d3ec0a20435749a08"
+    },
+    {
+      "path": "qa/validate_design.py",
+      "sizeBytes": 5060,
+      "sha256": "ae6fee5494535bf705eaa6c78657f8984695cc2697d5de3fd468fdd82742bc70"
+    },
+    {
+      "path": "schemas/characters.schema.json",
+      "sizeBytes": 3564,
+      "sha256": "94ee256494d5b2d4344172547e4d00674be85910bdb575eb8b5c0a55356669ac"
+    },
+    {
+      "path": "schemas/fate.schema.json",
+      "sizeBytes": 9639,
+      "sha256": "0d7d683ca20016f4a44cf0c13beb00512f435b44fb25593f5b1b02683e51981f"
+    },
+    {
+      "path": "schemas/manifest.schema.json",
+      "sizeBytes": 3504,
+      "sha256": "fa517879a7a44a8f59c4f4bbab6f102b1e6ae0aae888b796559fb5e874bdbdc5"
+    },
+    {
+      "path": "schemas/opening.schema.json",
+      "sizeBytes": 1183,
+      "sha256": "54aaa54abb3b7633a162b84e234df838860fa2dc7d56ec898aa1364770020e2e"
+    },
+    {
+      "path": "schemas/player_roles.schema.json",
+      "sizeBytes": 1659,
+      "sha256": "bb0ae21575ec5b53a91d68b36dc471edbc2632caa58fdf0e90d80a82f047b8e8"
+    },
+    {
+      "path": "schemas/scenes.schema.json",
+      "sizeBytes": 1134,
+      "sha256": "e859bb8c4b9c70dbd5c0940451095cbce9f03ab4cc3fadd426ed70c6452dbc57"
+    },
+    {
+      "path": "schemas/task.schema.json",
+      "sizeBytes": 5197,
+      "sha256": "126554547a6925daa553c5eecced1d9c5c43591d4bd6e529d0d673bad17825a3"
+    },
+    {
+      "path": "schemas/world.schema.json",
+      "sizeBytes": 1881,
+      "sha256": "94a7774f365475b4433f85755e0fe0d6e8d7523365dff9da8a6b3f0b245edef9"
+    }
+  ]
+}

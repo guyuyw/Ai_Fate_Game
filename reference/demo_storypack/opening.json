@@ -1,0 +1,12 @@
+{
+  "startingSceneId": "scene.hall",
+  "messages": [
+    {
+      "id": "msg.opening.01",
+      "senderId": "char.lin",
+      "type": "text",
+      "content": "我已经进入二楼走廊，前面分成两条路。你能帮我判断下一步吗？",
+      "storyMinute": 0
+    }
+  ]
+}

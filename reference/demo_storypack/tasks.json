@@ -1,0 +1,100 @@
+{
+  "tasks": [
+    {
+      "id": "task.find_route",
+      "ownerId": "char.lin",
+      "title": "确认可撤离路线",
+      "initialState": "active",
+      "prerequisites": {
+        "op": "all",
+        "rules": []
+      },
+      "succeedsWhen": {
+        "op": "fact_known",
+        "actorId": "char.lin",
+        "factId": "fact.exit_route"
+      },
+      "failsWhen": {
+        "op": "flag_eq",
+        "flag": "mission_failed",
+        "value": true
+      },
+      "onSuccess": [
+        {
+          "type": "unlock_scene",
+          "sceneId": "scene.roof"
+        }
+      ],
+      "onFailure": []
+    },
+    {
+      "id": "task.interview",
+      "ownerId": "char.lin",
+      "title": "取得研究室位置线索",
+      "initialState": "locked",
+      "prerequisites": {
+        "op": "task_state",
+        "taskId": "task.find_route",
+        "value": "succeeded"
+      },
+      "succeedsWhen": {
+        "op": "fact_known",
+        "actorId": "char.lin",
+        "factId": "fact.lab_location"
+      },
+      "failsWhen": {
+        "op": "flag_eq",
+        "flag": "mission_failed",
+        "value": true
+      },
+      "onSuccess": [
+        {
+          "type": "unlock_scene",
+          "sceneId": "scene.laboratory"
+        }
+      ],
+      "onFailure": []
+    },
+    {
+      "id": "task.save_witness",
+      "ownerId": "char.lin",
+      "title": "拯救被困目击者",
+      "initialState": "locked",
+      "prerequisites": {
+        "op": "task_state",
+        "taskId": "task.interview",
+        "value": "succeeded"
+      },
+      "succeedsWhen": {
+        "op": "flag_eq",
+        "flag": "witness_rescued",
+        "value": true
+      },
+      "failsWhen": {
+        "op": "event_occurred",
+        "eventId": "event.witness_death"
+      },
+      "onSuccess": [
+        {
+          "type": "revoke_event",
+          "eventId": "event.witness_death"
+        },
+        {
+          "type": "relation_delta",
+          "subjectId": "char.ye",
+          "targetId": "char.lin",
+          "dimension": "trust",
+          "delta": 20
+        }
+      ],
+      "onFailure": [
+        {
+          "type": "set_flag",
+          "flag": "mission_failed",
+          "value": true
+        }
+      ],
+      "deadlineMinute": 120
+    }
+  ]
+}

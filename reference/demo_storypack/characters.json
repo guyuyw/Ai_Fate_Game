@@ -1,0 +1,81 @@
+{
+  "characters": [
+    {
+      "id": "char.lin",
+      "name": "林默",
+      "kind": "protagonist",
+      "persona": "沉着但会冒险救人；尊重证据，不机械服从玩家。",
+      "goals": [
+        "找到失踪目击者",
+        "安全离开医院"
+      ],
+      "initialState": {
+        "alive": true,
+        "locationId": "scene.hall",
+        "health": 100,
+        "stress": 30,
+        "knownFactIds": [],
+        "inventoryItemIds": [
+          "item.flashlight"
+        ]
+      }
+    },
+    {
+      "id": "char.chen",
+      "name": "陈博士",
+      "kind": "npc",
+      "persona": "熟悉研究所但刻意隐瞒事故核心事实；不轻易交出资料。",
+      "goals": [
+        "不暴露事故真相",
+        "确保研究室封闭"
+      ],
+      "initialState": {
+        "alive": true,
+        "locationId": "scene.laboratory",
+        "health": 100,
+        "stress": 40,
+        "knownFactIds": [
+          "fact.lab_location",
+          "fact.witness_in_lab",
+          "fact.source_of_fog"
+        ],
+        "inventoryItemIds": []
+      }
+    },
+    {
+      "id": "char.ye",
+      "name": "叶宁",
+      "kind": "npc",
+      "persona": "失踪目击者，渴望获救，但会因恐惧拒绝陌生人的命令。",
+      "goals": [
+        "活着离开医院"
+      ],
+      "initialState": {
+        "alive": true,
+        "locationId": "scene.laboratory",
+        "health": 60,
+        "stress": 75,
+        "knownFactIds": [],
+        "inventoryItemIds": []
+      }
+    }
+  ],
+  "relations": [
+    {
+      "subjectId": "char.lin",
+      "targetId": "char.chen",
+      "trust": 10,
+      "respect": 20,
+      "affinity": 0,
+      "caution": 80
+    },
+    {
+      "subjectId": "char.ye",
+      "targetId": "char.lin",
+      "trust": 0,
+      "respect": 0,
+      "affinity": 0,
+      "caution": 50
+    }
+  ]
+}

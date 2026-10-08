@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.invalid/storypack/v1/task.schema.json",
+  "title": "AI Fate Task v1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "ownerId", "title", "initialState", "prerequisites", "succeedsWhen", "failsWhen", "onSuccess", "onFailure"],
+  "properties": {
+    "id": {"$ref": "#/definitions/id"},
+    "ownerId": {"$ref": "#/definitions/id"},
+    "title": {"type": "string", "minLength": 1, "maxLength": 200},
+    "description": {"type": "string", "maxLength": 2000},
+    "initialState": {"enum": ["locked", "available", "active", "succeeded", "failed", "cancelled"]},
+    "prerequisites": {"$ref": "#/definitions/condition"},
+    "succeedsWhen": {"$ref": "#/definitions/condition"},
+    "failsWhen": {"$ref": "#/definitions/condition"},
+    "onSuccess": {"type": "array", "items": {"$ref": "#/definitions/effect"}},
+    "onFailure": {"type": "array", "items": {"$ref": "#/definitions/effect"}},
+    "deadlineMinute": {"type": "integer", "minimum": 0}
+  },
+  "definitions": {
+    "id": {"type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"},
+    "condition": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["op", "rules"], "properties": {"op": {"enum": ["all", "any"]}, "rules": {"type": "array", "items": {"$ref": "#/definitions/condition"}}}},
+        {"type": "object", "additionalProperties": false, "required": ["op", "rule"], "properties": {"op": {"const": "not"}, "rule": {"$ref": "#/definitions/condition"}}},
+        {"type": "object", "additionalProperties": false, "required": ["op", "flag", "value"], "properties": {"op": {"const": "flag_eq"}, "flag": {"type": "string"}, "value": {"type": ["string", "boolean", "number"]}}},
+        {"type": "object", "additionalProperties": false, "required": ["op", "actorId", "factId"], "properties": {"op": {"const": "fact_known"}, "actorId": {"$ref": "#/definitions/id"}, "factId": {"$ref": "#/definitions/id"}}},
+        {"type": "object", "additionalProperties": false, "required": ["op", "actorId", "value"], "properties": {"op": {"const": "actor_alive"}, "actorId": {"$ref": "#/definitions/id"}, "value": {"type": "boolean"}}},
+        {"type": "object", "additionalProperties": false, "required": ["op", "eventId"], "properties": {"op": {"const": "event_occurred"}, "eventId": {"$ref": "#/definitions/id"}}},
+        {"type": "object", "additionalProperties": false, "required": ["op", "taskId", "value"], "properties": {"op": {"const": "task_state"}, "taskId": {"$ref": "#/definitions/id"}, "value": {"enum": ["locked", "available", "active", "succeeded", "failed", "cancelled"]}}},
+        {"type": "object", "additionalProperties": false, "required": ["op", "subjectId", "targetId", "dimension", "value"], "properties": {"op": {"const": "relation_gte"}, "subjectId": {"$ref": "#/definitions/id"}, "targetId": {"$ref": "#/definitions/id"}, "dimension": {"type": "string"}, "value": {"type": "number"}}},
+        {"type": "object", "additionalProperties": false, "required": ["op", "minute"], "properties": {"op": {"const": "story_time_gte"}, "minute": {"type": "integer", "minimum": 0}}}
+      ]
+    },
+    "effect": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["type", "flag", "value"], "properties": {"type": {"const": "set_flag"}, "flag": {"type": "string"}, "value": {"type": ["string", "number", "boolean"]}}},
+        {"type": "object", "additionalProperties": false, "required": ["type", "actorId", "factId"], "properties": {"type": {"const": "grant_fact"}, "actorId": {"$ref": "#/definitions/id"}, "factId": {"$ref": "#/definitions/id"}}},
+        {"type": "object", "additionalProperties": false, "required": ["type", "taskId", "state"], "properties": {"type": {"const": "task_transition"}, "taskId": {"$ref": "#/definitions/id"}, "state": {"enum": ["locked", "available", "active", "succeeded", "failed", "cancelled"]}}},
+        {"type": "object", "additionalProperties": false, "required": ["type", "actorId", "alive"], "properties": {"type": {"const": "actor_alive"}, "actorId": {"$ref": "#/definitions/id"}, "alive": {"type": "boolean"}}},
+        {"type": "object", "additionalProperties": false, "required": ["type", "subjectId", "targetId", "dimension", "delta"], "properties": {"type": {"const": "relation_delta"}, "subjectId": {"$ref": "#/definitions/id"}, "targetId": {"$ref": "#/definitions/id"}, "dimension": {"type": "string"}, "delta": {"type": "number"}}},
+        {"type": "object", "additionalProperties": false, "required": ["type", "eventId", "afterMinutes"], "properties": {"type": {"const": "schedule_event"}, "eventId": {"$ref": "#/definitions/id"}, "afterMinutes": {"type": "integer", "minimum": 0}}},
+        {"type": "object", "additionalProperties": false, "required": ["type", "eventId"], "properties": {"type": {"const": "revoke_event"}, "eventId": {"$ref": "#/definitions/id"}}},
+        {"type": "object", "additionalProperties": false, "required": ["type", "sceneId"], "properties": {"type": {"const": "unlock_scene"}, "sceneId": {"$ref": "#/definitions/id"}}}
+      ]
+    }
+  }
+}
